@@ -4,6 +4,7 @@
         <font-awesome-icon
             icon="plus-square"
             :class="[item.name ? 'active' : 'disabled', 'plus']"
+            @click="addItem()"
         />
     </div>
 </template>
@@ -16,6 +17,26 @@ export default {
                 name: "",
             },
         };
+    },
+    methods: {
+        addItem() {
+            if (this.item.name == "") {
+                return;
+            }
+
+            axios
+                .post("api/item/store", {
+                    item: this.item,
+                })
+                .then(function (response) {
+                    if (response.status === 201) {
+                        this.item.name = "";
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
     },
 };
 </script>
