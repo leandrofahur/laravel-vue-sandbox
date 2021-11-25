@@ -1,7 +1,37 @@
 <template>
-    <div>Hello World from VUE!</div>
+    <div class="container">
+        <div class="heading">
+            <h2 id="title">Todo List</h2>
+            <add-item-form />
+        </div>
+        <list-view></list-view>
+    </div>
 </template>
 
 <script>
-export default {};
+import addItemForm from "./addItemForm";
+import listView from "./listView";
+
+export default {
+    components: {
+        addItemForm,
+        listView,
+    },
+};
 </script>
+
+<style scoped>
+.container {
+    width: 350px;
+    margin: auto;
+}
+
+.heading {
+    background-color: #e6e6e6;
+    padding: 10px;
+}
+
+#title {
+    text-align: center;
+}
+</style>
