@@ -2,21 +2,21 @@
     <div class="container">
         <div class="heading">
             <h2 id="title">Todo List</h2>
-            <add-item-form v-on:reloadlist="getList()" />
+            <add-item-form :items="items" />
         </div>
-        <list-view :items="items" v-on:reloadlist="getList()" />
+        <list-view />
     </div>
 </template>
 
 <script>
 import addItemForm from "./addItemForm";
 import listView from "./listView";
-
 export default {
     components: {
         addItemForm,
         listView,
     },
+
     data: function () {
         return {
             items: [],
@@ -26,11 +26,11 @@ export default {
         getList() {
             axios
                 .get("api/items")
-                .then((responce) => {
-                    this.items = responce.data;
+                .then((response) => {
+                    this.items = response.data;
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch((err) => {
+                    console.log(err);
                 });
         },
     },
@@ -47,7 +47,7 @@ export default {
 }
 
 .heading {
-    background-color: #e6e6e6;
+    background: #e6e6e6;
     padding: 10px;
 }
 
