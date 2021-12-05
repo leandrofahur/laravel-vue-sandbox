@@ -3,7 +3,7 @@
         <input type="text" v-model="item.name" />
         <font-awesome-icon
             icon="plus-square"
-            :class="[item.name ? 'active' : 'inactive', 'plus']"
+            :class="[item.name ? 'active' : 'disabled', 'plus']"
             @click="addItem()"
         />
     </div>
@@ -18,23 +18,23 @@ export default {
             },
         };
     },
-
     methods: {
         addItem() {
             if (this.item.name == "") {
                 return;
             }
-
             axios
                 .post("api/item/store", {
                     item: this.item,
                 })
-                .then((response) => {
-                    if (response.status == 201) {
+                .then(function (response) {
+                    if (response.status === 201) {
                         this.item.name = "";
                     }
                 })
-                .catch((err) => console.log(err));
+                .catch(function (error) {
+                    console.log(error);
+                });
         },
     },
 };
@@ -43,29 +43,24 @@ export default {
 <style scoped>
 .addItem {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
-
 input {
-    background: #fff;
-    border: 0;
+    background: #f7f7f7;
     outline: none;
+    border: 0px;
     padding: 5px;
-    margin-right: 5px;
+    margin-right: 10px;
     width: 100%;
 }
-
 .plus {
-    font-size: 25px;
+    font-size: 20px;
 }
-
 .active {
     color: #00ce25;
 }
-
-.inactive {
+.disabled {
     color: #999999;
 }
 </style>
